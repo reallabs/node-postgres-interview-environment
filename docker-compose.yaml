@@ -5,14 +5,14 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - .:/usr/src/app/
+      - ./src/:/usr/src/app/src/
     depends_on:
       - postgres
     environment:
       DATABASE_URL: postgres://interviewapp:pass@postgres/interview
       PORT: 8080
       HOST: 0.0.0.0
-    command: nodemon app.js
+    command: ["nodemon", "src/app.js"]
   postgres:
     image: postgres
     restart: always

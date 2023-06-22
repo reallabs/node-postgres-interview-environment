@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Base environment needed to be ready to perform a node interview connected to Postgres",
   "type": "module",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "wwing@liftoff.io",

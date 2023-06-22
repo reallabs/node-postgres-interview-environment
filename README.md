@@ -2,7 +2,7 @@
 
 This project will serve as the base for the project you will build during your
 technical interview. It consists of a node.js project with all of its source
-code in `app.js`, as well as a `Dockerfile` to build the app inside a container.
+code in `src/app.js`, as well as a `Dockerfile` to build the app inside a container.
 There is also a `docker-compose.yaml` file, which will spawn  a container for
 the app, as well as a **Postgres Database**
 

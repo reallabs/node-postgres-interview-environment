@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/usr/src/app/
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://interviewapp:pass@postgres/interview
+      PORT: 8080
+      HOST: 0.0.0.0
+    command: nodemon app.js
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: interviewapp
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: interview

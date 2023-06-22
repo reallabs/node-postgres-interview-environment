@@ -1,0 +1,19 @@
+{
+  "name": "postgres-interview-environment",
+  "version": "1.0.0",
+  "description": "Base environment needed to be ready to perform a node interview connected to Postgres",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wwing@liftoff.io",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "pg": "^8.11.0",
+    "sequelize": "^6.32.1"
+  }
+}

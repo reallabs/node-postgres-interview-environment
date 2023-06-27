@@ -12,7 +12,7 @@ services:
       DATABASE_URL: postgres://interviewapp:pass@postgres/interview
       PORT: 8080
       HOST: 0.0.0.0
-    command: ["nodemon", "src/app.js"]
+    command: ["nodemon", "--es-module-specifier-resolution=node", "src/app.js"]
   postgres:
     image: postgres
     restart: always

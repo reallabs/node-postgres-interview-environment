@@ -1,24 +1,57 @@
-import express from "express";
-import {Sequelize} from "sequelize";
+import "dotenv/config";
 
-// Constants
-const PORT = process.env.PORT ?? 8080;
-const HOST = process.env.HOST ?? '0.0.0.0';
+import _express from "express";
+import _knex from "knex";
+import _knexConfig from "./db/knexfile";
+import { routes as _postRoutes } from "./api/posts/routes";
+import * as url from "node:url";
+import _config from "./config";
+import _middleware from "./middleware";
 
-// TODO: switch to postgres connection
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+export async function build({
+  express = _express,
+  knex = _knex,
+  knexConfig = _knexConfig,
+  config = _config,
+  postRoutes = _postRoutes,
+  middleware = _middleware,
+} = {}) {
+  // create db
+  const db = knex(knexConfig[config.app.env]);
 
-const app = express();
+  // validate sql connection (this can be done in a knex hook)
+  await db.raw("select 1+1");
 
-app.get("/hello_db", async (req, res) => {
-    try {
-        await sequelize.authenticate();
-        res.send('Database connected!');
-    } catch (error) {
-        res.status(500).send('Unable to connect to the database:', error);
-    }
-});
+  // create app
+  const app = express();
 
-app.listen(PORT, HOST, () => {
-    console.log(`Running on http://${HOST}:${PORT}`);
-});
+  // load middleware
+  await middleware({ app });
+
+  // load routes
+  app.use(await postRoutes());
+
+  // return built app
+  return app;
+}
+
+/**
+ * Auto start/listen if this file is called directly
+ */
+if (import.meta.url.startsWith("file:")) {
+  const modulePath = url.fileURLToPath(import.meta.url);
+  if (process.argv[1] === modulePath) {
+    const {
+      app: { port, host },
+    } = _config;
+    const app = await build();
+    app.listen(port, host, (error) => {
+      if (error != null) {
+        console.error("Error starting app.", error);
+        process.exit(1);
+      }
+      -console.log(`Running on http://${host}:
+      ${port}`);
+    });
+  }
+}

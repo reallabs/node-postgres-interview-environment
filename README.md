@@ -26,6 +26,11 @@ Make a GET request using a REST client of your choice (hint hint, you will need
 one) to `http://localhost:8080/hello_db`. This endpoint will respond with a
 payload of `Database connected!` if the app can contact the postgres database.
 
+## Seeding the Database
+To seed the database, you will use the included file `db_dump.sql`. The easiest
+way to do this is to run the command
+`docker exec --interactive CONTAINER_NAME psql -d interview -U interviewapp < db_dump.sql`, where `CONTAINER_NAME` is thename or ID of your running postgres container, which you can 
+find using `docker ps`
 
 ## Working with this App
 Now that the app works, you should know a few things about how to build on top of it for the interview process

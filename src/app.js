@@ -1,12 +1,9 @@
 import express from "express";
-import {Sequelize} from "sequelize";
+import {sequelize, User, Post, Follow} from "./models/index.js";
 
 // Constants
 const PORT = process.env.PORT ?? 8080;
 const HOST = process.env.HOST ?? '0.0.0.0';
-
-// TODO: switch to postgres connection
-const sequelize = new Sequelize(process.env.DATABASE_URL);
 
 const app = express();
 
@@ -19,6 +16,6 @@ app.get("/hello_db", async (req, res) => {
     }
 });
 
-app.listen(PORT, HOST, () => {
+app.listen(PORT, HOST, async () => {
     console.log(`Running on http://${HOST}:${PORT}`);
 });

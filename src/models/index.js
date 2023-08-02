@@ -36,6 +36,32 @@ export const Follow = sequelize.define(
   }
 );
 
+export const Like = sequelize.define(
+  "Like",
+  {
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id"
+      }
+    },
+    postId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Post,
+        key: "id",
+      }
+    }
+  },
+  {
+    sequelize,
+    modelName: "Like",
+    paranoid: true,
+    underscored: true,
+  }
+)
+
 User.belongsToMany(User, {
   as: "Followers",
   through: "Follow",
